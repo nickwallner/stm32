@@ -8,8 +8,8 @@
 /* macros */
 #define UNUSED(x) (void)(x);
 
-#define BIT(x)                  (1UL << (x)) // get a bitfield with only bit x set
-#define IS_SET(reg, bit_num)    (reg & BIT(bit_num)) // check if a bit is set in a register
+#define BIT(x)                   (1UL << (x)) // get a bitfield with only bit x set
+#define IS_BIT_SET(reg, bit_num) ((reg & BIT(bit_num)) == BIT(bit_num)) // check if a bit is set in a register
 
 #define SET_BIT(reg, bit_num)   (reg |= BIT(bit_num)) // set a bit in a register
 #define RESET_BIT(reg, bit_num) (reg &= ~(1UL << BIT(bit_num))) // reset a bit in a register

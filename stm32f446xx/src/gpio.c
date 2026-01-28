@@ -3,13 +3,38 @@
 /* check if a GPIO pinno is set to a specific mode */
 #define IS_MODE(pin, mode) ((gpiox->MODER & (mode << (pin * 2))) == ((uint32_t)(mode << (pin * 2))))
 
-void GPIO_Set_Mode(GPIO_Peripheral *gpiox, int pin, GPIO_Pin_Mode mode)
+void GPIO_Pin_Init(GPIO_Pin_InitStruct *init)
+{
+    GPIO_Set_Mode(init->gpiox, init->pin, init->pin_mode);
+    GPIO_Set_OutputType(init->gpiox, init->pin, init->output_type);
+    GPIO_Set_OutputSpeed(init->gpiox, init->pin, init->output_speed);
+    GPIO_Set_AF(init->gpiox, init->pin, init->alternate_function);
+}
+
+void GPIO_Set_Mode(GPIO_Peripheral *gpiox, GPIO_Pin pin, GPIO_Pin_Mode mode)
 {
     gpiox->MODER &= ~(3U << (pin * 2)); // clear bits before setting them
     gpiox->MODER |= (mode << (pin * 2)); // set bits to proper mode
 }
 
-void GPIO_Set_AF(GPIO_Peripheral *gpiox, int pin, int af)
+void GPIO_Set_OutputType(GPIO_Peripheral *gpiox, GPIO_Pin pin, GPIO_Output_Type type)
+{
+    gpiox->OTYPER |= (type << pin);
+}
+
+void GPIO_Set_OutputSpeed(GPIO_Peripheral *gpiox, GPIO_Pin pin, GPIO_Output_Speed speed)
+{
+    gpiox->OSPEEDR &= ~(3U << (pin * 2));
+    gpiox->OSPEEDR |= (speed << (pin * 2));
+}
+
+void GPIO_Set_Pull(GPIO_Peripheral *gpiox, GPIO_Pin pin, GPIO_Pull pull)
+{
+    gpiox->PUPDR &= ~(3U << (pin * 2));
+    gpiox->PUPDR |= (pull << (pin * 2));
+}
+
+void GPIO_Set_AF(GPIO_Peripheral *gpiox, GPIO_Pin pin, GPIO_AF af)
 {
     /* check if pin is already in af mode */
     if (!(IS_MODE(pin, GPIO_MODE_AF)))
@@ -31,7 +56,7 @@ void GPIO_Set_AF(GPIO_Peripheral *gpiox, int pin, int af)
     }
 }
 
-void GPIO_Write(GPIO_Peripheral *gpiox, int pin, GPIO_Pin_State pinstate)
+void GPIO_Write(GPIO_Peripheral *gpiox, GPIO_Pin pin, GPIO_Pin_State pinstate)
 {
     switch (pinstate)
     {
@@ -45,10 +70,10 @@ void GPIO_Write(GPIO_Peripheral *gpiox, int pin, GPIO_Pin_State pinstate)
     }
 }
 
-GPIO_Pin_State GPIO_Read(GPIO_Peripheral *gpiox, int pin)
+GPIO_Pin_State GPIO_Read(GPIO_Peripheral *gpiox, GPIO_Pin pin)
 {
     /* check if pin is set */
-    if ((gpiox->IDR & BITMASK16(pin)) == BITMASK16(pin))
+    if (IS_BIT_SET(gpiox->IDR, pin))
     {
         return GPIO_PIN_SET;
     }
@@ -56,10 +81,10 @@ GPIO_Pin_State GPIO_Read(GPIO_Peripheral *gpiox, int pin)
     return GPIO_PIN_RESET;
 }
 
-void GPIO_Toggle(GPIO_Peripheral *gpiox, int pin)
+void GPIO_Toggle(GPIO_Peripheral *gpiox, GPIO_Pin pin)
 {
     /* check if pin is already set */
-    if ((gpiox->ODR & BITMASK16(pin)) == BITMASK16(pin))
+    if (IS_BIT_SET(gpiox->ODR, pin))
     {
         /* reset pin */
         gpiox->BSRR = (BITMASK32(pin) << 16);

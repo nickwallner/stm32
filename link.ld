@@ -1,5 +1,5 @@
 /*
-This is an bare-bones linker script for use with an
+This is a bare-bones linker script for use with an
 stm32f446xx microcontroller. I have stopped using this linker
 script in favor of the linker script provided by ST (STM32F446XX_FLASH.ld)
 */

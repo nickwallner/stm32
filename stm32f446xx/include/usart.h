@@ -12,8 +12,8 @@
 #define USART1_BASE_ADDR 0x40011000
 #define USART2_BASE_ADDR 0x40004400
 #define USART3_BASE_ADDR 0x40004800
-#define UART4_BASE_ADDR 0x40004C00
-#define UART5_BASE_ADDR 0x40005000
+#define UART4_BASE_ADDR  0x40004C00
+#define UART5_BASE_ADDR  0x40005000
 #define USART6_BASE_ADDR 0x40011400
 
 /* usart peripherals */
@@ -26,35 +26,35 @@
 
 /* usart pins */
 #define USART1_GPIO_PORT   GPIOA
-#define USART1_GPIO_AF     AF7
-#define USART1_TX_PIN      PIN9
-#define USART1_RX_PIN      PIN10
+#define USART1_GPIO_AF     GPIO_AF7
+#define USART1_TX_PIN      GPIO_PIN9
+#define USART1_RX_PIN      GPIO_PIN10
 
 #define USART2_GPIO_PORT   GPIOA
-#define USART2_GPIO_AF     AF7
-#define USART2_TX_PIN      PIN2
-#define USART2_RX_PIN      PIN3
+#define USART2_GPIO_AF     GPIO_AF7
+#define USART2_TX_PIN      GPIO_PIN2
+#define USART2_RX_PIN      GPIO_PIN3
 
 #define USART3_GPIO_PORT   GPIOB
-#define USART3_GPIO_AF     AF7
-#define USART3_TX_PIN      PIN10
-#define USART3_RX_PIN      PIN11
+#define USART3_GPIO_AF     GPIO_AF7
+#define USART3_TX_PIN      GPIO_PIN10
+#define USART3_RX_PIN      GPIO_PIN11
 
 #define UART4_GPIO_PORT    GPIOA
-#define UART4_GPIO_AF      AF8
-#define UART4_TX_PIN       PIN0
-#define UART4_RX_PIN       PIN1
+#define UART4_GPIO_AF      GPIO_AF8
+#define UART4_TX_PIN       GPIO_PIN0
+#define UART4_RX_PIN       GPIO_PIN1
 
 #define UART5_TX_GPIO_PORT GPIOC
 #define UART5_RX_GPIO_PORT GPIOD
-#define UART5_GPIO_AF      AF8
-#define UART5_TX_PIN       PIN12 
-#define UART5_RX_PIN       PIN2
+#define UART5_GPIO_AF      GPIO_AF8
+#define UART5_TX_PIN       GPIO_PIN12 
+#define UART5_RX_PIN       GPIO_PIN2
 
 #define USART6_GPIO_PORT   GPIOC
-#define USART6_GPIO_AF     AF8
-#define USART6_TX_PIN      PIN6
-#define USART6_RX_PIN      PIN7
+#define USART6_GPIO_AF     GPIO_AF8
+#define USART6_TX_PIN      GPIO_PIN6
+#define USART6_RX_PIN      GPIO_PIN7
 
 /* usart peripheral registers */
 typedef struct
